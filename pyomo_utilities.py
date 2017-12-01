@@ -1,4 +1,4 @@
-"""
+﻿"""
 Author: Esteban Jiménez Rodríguez
 Institution: ITESO - Universidad Jesuita de Guadalajara
 Date: 01/11/2017
@@ -233,7 +233,7 @@ def curve_polyfit(x, y, order, reg_mode = None, reg_coef = None, robust = False)
     instance = model.create_instance('default1.dat')
     # Setup the optimizer: linear in this case
     import pyomo.environ
-    opt = pyomo.opt.SolverFactory('ipopt')    
+    opt = pyomo.opt.SolverFactory('ipopt', executable = 'C:/Users/personal/Anaconda3/pkgs/ipopt_bin-3.11.1-23/Library/bin/ipopt.exe')
     # Optimize
     results = opt.solve(instance)
     # Write the output
@@ -273,7 +273,7 @@ def dat_write_clas(Xa, Y):
     # Closing the data file
     dat_file.close()
     
-def clas_model():   
+def clas_model(n):   
     model = pyomo.environ.AbstractModel()
     
     model.m = pyomo.environ.Param(within=pyomo.environ.NonNegativeIntegers)
@@ -311,12 +311,12 @@ def logreg_clas(X, Y):
     dat_write_clas(Xa, Y)
     
     # Solution
-    model = clas_model()
+    model = clas_model(n)
     # Create the model instance
     instance = model.create_instance('default2.dat')
     # Setup the optimizer: linear in this case
     import pyomo.environ
-    opt = pyomo.opt.SolverFactory('ipopt')    
+    opt = pyomo.opt.SolverFactory('ipopt', executable = 'C:/Users/personal/Anaconda3/pkgs/ipopt_bin-3.11.1-23/Library/bin/ipopt.exe')    
     # Optimize
     results = opt.solve(instance)
     # Write the output
